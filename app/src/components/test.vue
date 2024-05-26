@@ -11,11 +11,12 @@ export default defineComponent({
     setup() {
         const darbiba = async () => {
             try {
-                const response = await axios.get('https://apis.roblox.com/datastores/v1/universes/5697506348/standard-datastores', {
+                const response = await axios.get('https://apis.roblox.com/api/datastores/v1/universes/5697506348/standard-datastores', {
                     headers: {
                         'x-api-key': 'RGZwK37KMEeGWQ/xn5gSZVHx6yrp8r3IBp38EMqHSNXhixUT'
                     }
-                })
+                });
+                console.log(response.data);
             } catch (e) {
                 console.log(e);
             }
@@ -24,3 +25,5 @@ export default defineComponent({
     },
 });
 </script>
+
+

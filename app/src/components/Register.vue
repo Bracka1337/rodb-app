@@ -31,7 +31,7 @@ export default defineComponent({
 
         const submitRegister = async () => {
             try {
-                const response = await axios.post(`http://localhost:8000/api/register`, {
+                const response = await axios.post(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/register`, {
                     name: username.value,
                     email: email.value,
                     password: password.value,

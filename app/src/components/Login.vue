@@ -26,7 +26,7 @@ export default defineComponent({
 
         const submitLogin = async () => {
             try {
-                const response = await axios.post(`http://localhost:8000/api/login`, {
+                const response = await axios.post(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/login`, {
                     email: email.value,
                     password: password.value
                 });
