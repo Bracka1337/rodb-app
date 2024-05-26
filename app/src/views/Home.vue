@@ -1,7 +1,10 @@
 <template>
-  <HelloWorld />
+  <NavBar />
+  <Home />
 </template>
 
 <script lang="ts" setup>
-  import HelloWorld from '@/components/HelloWorld.vue'
+  import NavBar from '@/components/NavBar.vue'
+  import Home from '@/components/Home.vue'
 </script>
+

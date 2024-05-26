@@ -51,12 +51,12 @@ export default defineComponent({
 .login-container {
     width: 400px;
     padding: 32px;
-    background-color: #f1f1f1;
+    background-color: rgb(53, 53, 53);
     margin: 0 auto;
     margin-top: 100px;
     border-radius: 4px;
-    border: 2px solid green;;
-    box-shadow: 0 0 15px rgba(15, 131, 30, 0.493);
+    border: 2px solid rgba(102, 31, 143);
+    box-shadow: 0 0 15px rgba(102, 31, 143);
 }
 
 .email-container, .password-container {
@@ -78,6 +78,7 @@ input[type="email"], input[type="password"] {
     border: 1px solid #ccc;
     box-sizing: border-box;
     border-radius: 4px;
+    color: white;
 }
 
 button {
@@ -93,6 +94,10 @@ button {
 
 button:hover {
     opacity: 0.8;
+}
+
+p {
+    color: white;
 }
 
 </style>
