@@ -1,5 +1,9 @@
 <template>
     <div class="register-container">
+        <div class="label-container">
+            <h1>RoDB</h1>
+            <h2>Register</h2>
+        </div>
         <div class="username-container">
             <p>Username</p>
             <input type="text" v-model="username">
@@ -12,7 +16,8 @@
             <p>Password</p>
             <input type="password" v-model="password">
         </div>
-        <button @click="submitRegister">Register</button>
+        <button class="register-btn" @click="submitRegister">Register</button>
+        <button>Already have an account? Login</button>
     </div>
 </template>
 
@@ -63,10 +68,19 @@ export default defineComponent({
     border-radius: 4px;
     border: 2px solid rgba(102, 31, 143);
     box-shadow: 0 0 15px rgba(102, 31, 143);
+    color: white;
 }
 
-.email-container, .password-container, username-container {
-    margin-bottom: 15px;
+.label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.email-container, .password-container, .username-container {
+    margin-bottom: 5px;
 }
 
 
@@ -75,29 +89,30 @@ input[type="email"], input[type="password"], input[type="text"] {
     padding: 12px 20px;
     margin: 0px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.267);
     box-sizing: border-box;
     border-radius: 4px;
     color: white;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
+.register-btn {
     width: 100%;
-    border-radius: 4px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 3px solid rgb(102, 31, 143);
+    box-shadow: 0 0 12px rgb(102, 31, 143);
+    border-radius: 5px;
+    color: rgb(162, 0, 255);
+    font-size: large;
+    font-weight: 550;
+    transition: all ease 0.3s;
 }
 
-button:hover {
-    opacity: 0.8;
-}
-
-p {
+.register-btn:hover {
+    background-color: rgb(102, 31, 143);
     color: white;
 }
+
 
 </style>

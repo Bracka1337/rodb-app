@@ -1,5 +1,9 @@
 <template>
     <div class="login-container">
+        <div class="label-container">
+            <h1>RoDB</h1>
+            <h2>Login</h2>
+        </div>
         <div class="email-container">
             <p>Email</p>
             <input type="email" v-model="email">
@@ -8,7 +12,8 @@
             <p>Password</p>
             <input type="password" v-model="password">
         </div>
-        <button @click="submitLogin">Login</button>
+        <button class="login-btn" @click="submitLogin">Login</button>
+        <button>Don't have an account? Register</button>
     </div>
 </template>
 
@@ -57,10 +62,19 @@ export default defineComponent({
     border-radius: 4px;
     border: 2px solid rgba(102, 31, 143);
     box-shadow: 0 0 15px rgba(102, 31, 143);
+    color: white;
+}
+
+.label-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 .email-container, .password-container {
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
 
 .rvt-logo {
@@ -75,28 +89,28 @@ input[type="email"], input[type="password"] {
     padding: 12px 20px;
     margin: 0px 0;
     display: inline-block;
-    border: 1px solid #ccc;
+    border: 1px solid rgba(255, 255, 255, 0.267);
     box-sizing: border-box;
     border-radius: 4px;
     color: white;
 }
 
-button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
+.login-btn {
     width: 100%;
-    border-radius: 4px;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    border: 3px solid rgb(102, 31, 143);
+    box-shadow: 0 0 12px rgb(102, 31, 143);
+    border-radius: 5px;
+    color: rgb(162, 0, 255);
+    font-size: large;
+    font-weight: 550;
+    transition: all ease 0.3s;
 }
 
-button:hover {
-    opacity: 0.8;
-}
-
-p {
+.login-btn:hover {
+    background-color: rgb(102, 31, 143);
     color: white;
 }
 
