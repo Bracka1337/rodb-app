@@ -1,6 +1,6 @@
 <template>
     <div class="game-container">
-        <button class="game-btn">A Game</button>
+        <button class="game-btn" @click="routeToDatastore">A Game</button>
         <button class="add-game-btn">+</button>
     </div>
 </template>
@@ -8,11 +8,20 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 
 export default defineComponent({
-    name: "NavBar",
+    name: "GameComponent",
     setup() {
 
+        const router = useRouter();
+
+        const routeToDatastore = async () => {
+            router.push('/games/1/datastore');
+        };
+
+        return { routeToDatastore }
     }
 });
 </script>

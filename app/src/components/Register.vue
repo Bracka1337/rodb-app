@@ -1,7 +1,7 @@
 <template>
     <div class="register-container">
         <div class="label-container">
-            <h1>RoDB</h1>
+            <button class="label-btn" @click="routeToMain">RoDB</button>
             <h2>Register</h2>
         </div>
         <div class="username-container">
@@ -17,7 +17,7 @@
             <input type="password" v-model="password">
         </div>
         <button class="register-btn" @click="submitRegister">Register</button>
-        <button>Already have an account? Login</button>
+        <button @click="routeToLogin">Already have an account? Login</button>
     </div>
 </template>
 
@@ -52,7 +52,14 @@ export default defineComponent({
             }
         };
 
-        return { username, email, password, submitRegister };
+        const routeToMain = async () => {
+            router.push('/');
+        };
+        const routeToLogin = async () => {
+            router.push('/login');
+        };
+
+        return { username, email, password, submitRegister, routeToMain, routeToLogin };
     },
 });
 </script>
@@ -114,5 +121,10 @@ input[type="email"], input[type="password"], input[type="text"] {
     color: white;
 }
 
+.label-btn {
+    font-size: 2em;
+    font-weight: bold;
+    text-align: center;
+}
 
 </style>
