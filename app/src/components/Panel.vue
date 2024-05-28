@@ -1,5 +1,5 @@
 <template>
-    <Popup :message="'error.. deleting system32'" :type="'info'"/>
+    <!-- <Popup :message="'error.. deleting system32'" :type="'error'"/> -->
     <div class="container">
         <div class="header">
             <h1 class="game-name">Game Name</h1>

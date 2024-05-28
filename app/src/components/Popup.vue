@@ -6,10 +6,8 @@
         
 
         <div class="inner" >
-            <div class="top">
-                <button @click="close">Close</button>
-            </div>
             <p>{{ message }}</p>
+            <button @click="close">X</button>
         </div>
     </div>
 </template>
@@ -50,7 +48,7 @@ export default defineComponent({
 .popup {
     position: absolute;
     width: 30%;
-    height: 10%;
+    height: auto;
     margin: auto;
     left: 50%;
     top: 50%;
@@ -60,18 +58,30 @@ export default defineComponent({
 .inner {
     padding: 10px 15px;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
+    flex-direction: row;
 }
 
+button {
+    color: white;
+    font-size: 12px;
+}
+
+p {
+    color: white;
+}
 
 .error {
-    background-color: red;
+    background-color: rgba(219, 76, 76, 0.904);
+    border: 2px solid rgb(255, 52, 52);
+    border-radius: 10px;
 }
 
 .info {
-    background-color: green;
+    background-color: rgba(90, 185, 90, 0.89);
+    border: 2px solid rgb(117, 255, 117);
+    border-radius: 10px;
 }
 
 .top {
