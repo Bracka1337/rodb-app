@@ -1,7 +1,7 @@
 <template>
     <div class="header">
         <button class="label" @click="routeToMain">RoDB</button>
-        <button class="btn" v-if="$route.path !== '/'" @click="routeToGames">Games</button>
+        <button class="btn" v-if="$route.path !== '/'" @click="routeToProfile">Profile</button>
         <div class="btn-container">
             <button class="login-btn" v-if="$route.path === '/'" @click="routeToLogin">Login</button>
         </div>
@@ -26,11 +26,11 @@ export default defineComponent({
             router.push('/login');
         };
 
-        const routeToGames = async () => {
-            router.push('/games');
+        const routeToProfile = async () => {
+            router.push('/profile');
         };
 
-        return { routeToMain, routeToLogin, routeToGames };
+        return { routeToMain, routeToLogin, routeToProfile };
     }
 });
 </script>

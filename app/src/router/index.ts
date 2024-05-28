@@ -42,14 +42,14 @@ const routes = [
         },
       },
       {
-        path: "/games",
-        name: "Games",
-        component: () => import("@/views/Game.vue"),
+        path: "/profile",
+        name: "Profile",
+        component: () => import("@/views/Profile.vue")
       },
       {
-        path: `/games/1/datastore`,
-        name: "Datastore",
-        component: () => import("@/views/Datastore.vue"),
+        path: '/games/:id',
+        name: "Panel",
+        component: () => import("@/views/Panel.vue"),
       },
     ],
   },

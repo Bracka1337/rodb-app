@@ -38,6 +38,7 @@ export default defineComponent({
                 if (response.data.status) {
                     console.log("Success");
                     localStorage.setItem('userToken', response.data.token);
+                    router.push('/profile');
                 } else {
                     console.log("Invalid Credentials");
                 }

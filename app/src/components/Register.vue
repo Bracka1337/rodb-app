@@ -44,6 +44,7 @@ export default defineComponent({
                 });
                 if (response.data.status) {
                     console.log("Success");
+                    router.push('/login');
                 } else {
                     console.log("Register Failer");
                 }
