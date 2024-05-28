@@ -45,7 +45,9 @@ export default defineComponent({
  box-shadow: 0 0 30px rgb(102, 31, 143);
  color: white;
  display:grid;
- grid-template-columns: repeat(3, minmax(0, 1fr));
+ grid-auto-columns: minmax(0, 1fr);
+ grid-auto-flow: column;
+
 }
 
 .label {
@@ -55,7 +57,10 @@ export default defineComponent({
     text-align: left
 }
 
-btn-container {
+.btn-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
     margin-left: auto;
 }
 
