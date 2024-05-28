@@ -1,8 +1,12 @@
 <template>
+    <Popup :message="'error.. deleting system32'" :type="'info'"/>
     <div class="container">
         <div class="header">
             <h1 class="game-name">Game Name</h1>
             <button>Refresh</button>
+        </div>
+        <div class="apikey-container">
+            <input>
         </div>
         <div class="datastore-container">
             <button class="datastore-btn">Datastore Name</button>
@@ -49,11 +53,21 @@
 
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
+import { defineComponent, ref } from 'vue';
+import Popup from "./Popup.vue";
+
+export default defineComponent({
+    name: "PanelComponent",
+    components: {
+        Popup
+    }
+   
+});
 
 </script>
 
-<style>
+<style scoped>
 
 .container {
     color:white;
@@ -173,6 +187,10 @@ p {
 .value {
   flex-grow: 1;
   overflow: hidden;
+}
+
+input {
+    color: white;
 }
 
 </style>

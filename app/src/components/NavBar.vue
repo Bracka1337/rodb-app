@@ -38,21 +38,21 @@ export default defineComponent({
 <style scoped>
 
 .header {
- display: flex;
- justify-content: space-between;
- align-items: center;
  padding: 15px;
  max-height: 10%;
  background-color: rgb(53, 53, 53);
  border-bottom: 5px solid rgb(102, 31, 143);
  box-shadow: 0 0 30px rgb(102, 31, 143);
  color: white;
+ display:grid;
+ grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .label {
     font-size: 2em;
     font-weight: bold;
     text-align: center;
+    text-align: left
 }
 
 btn-container {
@@ -76,10 +76,5 @@ btn-container {
     color: white;
 }
 
-.btn {
-    display: absolute;
-    align-self: center;
-    justify-self: center;
-}
 
 </style>
