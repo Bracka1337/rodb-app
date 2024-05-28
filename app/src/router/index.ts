@@ -1,51 +1,63 @@
 // Composables
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
+
+function isLoggedIn() {
+  return localStorage.getItem("userToken") !== null;
+}
 
 const routes = [
   {
-    path: '/',
-    component: () => import('@/layouts/default/Default.vue'),
+    path: "/",
+    component: () => import("@/layouts/default/Default.vue"),
     children: [
       {
-        path: '',
-        name: 'Home',
+        path: "",
+        name: "Home",
         // route level code-splitting
         // this generates a separate chunk (about.[hash].js) for this route
         // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-      },
-      { 
-        path: '/login',
-        name: 'Login',
-        component: () => import('@/views/Login.vue'),
-      },
-      { 
-        path: '/register',
-        name: 'Register',
-        component: () => import('@/views/Register.vue'),
+        component: () =>
+          import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
       },
       {
-        path: '/test',
-        name: 'Test',
-        component: () => import('@/views/test.vue'),
+        path: "/login",
+        name: "Login",
+        component: () => import("@/views/Login.vue"),
       },
       {
-        path: '/games',
-        name: 'Games',
-        component: () => import('@/views/Game.vue'),
+        path: "/register",
+        name: "Register",
+        component: () => import("@/views/Register.vue"),
+      },
+      {
+        path: "/test",
+        name: "Test",
+        component: () => import("@/views/test.vue"),
+        beforeEnter: (to: any, from: any, next: any) => {
+          if (isLoggedIn()) {
+            next();
+          } else {
+            next("/login");
+          }
+        },
+      },
+      {
+        path: "/games",
+        name: "Games",
+        component: () => import("@/views/Game.vue"),
       },
       {
         path: `/games/1/datastore`,
-        name: 'Datastore',
-        component: () => import('@/views/Datastore.vue'),
-      }
+        name: "Datastore",
+        component: () => import("@/views/Datastore.vue"),
+      },
     ],
   },
-]
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
-})
+});
 
-export default router
+export default router;
