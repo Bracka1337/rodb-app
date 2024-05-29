@@ -8,7 +8,7 @@
             <div>
                 <div class="field">
                     <label>Name:</label>
-                    <input type="text" id="Name" name="Name" required>
+                    <input type="text" id="Name" name="name" required>
                 </div>
                 <div class="field">
                     <label>Universe ID:</label>
@@ -16,11 +16,11 @@
                 </div>
                 <div class="field">
                     <label>Roblox API key:</label>
-                    <input type="text" id="apikey" name="apikey" required>
+                    <input type="text" id="apikey" name="roblox_api_key" required>
                 </div>
             </div>
 
-            <button type="submit">Submit</button>
+            <button type="submit" @click="submitForm">Submit</button>
         </form>
     </div>
     <div class="container">
@@ -35,6 +35,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 
@@ -44,16 +45,56 @@ export default defineComponent({
         const showForm = ref(false);
         const router = useRouter();
 
+        const name = ref<string>('');
+        const universeId = ref<string>('');
+        const roblox_api_key = ref<string>('');
+
         const toggleForm = async () => {
             showForm.value = !showForm.value;
         }
 
+        const token = localStorage.getItem('userToken');
+
+        const submitForm = async (event) => {
+            event.preventDefault();
+
+            // const formData = new FormData();
+            // formData.append('name', name.value);
+            // formData.append('universeID', universeId.value);
+            // formData.append('roblox-api-key', roblox_api_key.value);
+
+
+            try {
+                const response = await axios.post(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game`, {
+                    'name': name.value,
+                    'universeID': parseInt(universeId.value),
+                    'roblox-api-key': roblox_api_key.value,
+                } ,{
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`,
+                    },
+                });
+                if (response.data.status) {
+                    console.log("sent data");
+                    console.log(response.data);
+                } else {
+                    console.log("Idk bro some fialed");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        const fetchData = async () => {
+            
+        }
 
         const routeToDatastore = async () => {
             router.push('/games/1');
         };
 
-        return { routeToDatastore, showForm, toggleForm }
+        return { routeToDatastore, showForm, toggleForm, submitForm }
     }
 });
 </script>
@@ -91,8 +132,8 @@ form {
 }
 
 .form-container {
-    background-color: rgba(155, 154, 154, 0.267);
-    border: 2px solid rgba(255, 255, 255, 0.267);
+    background-color: rgb(71, 71, 71);
+    border: 2px solid rgb(106, 106, 106);
     border-radius: 10px;
     color: white;
     position: absolute;

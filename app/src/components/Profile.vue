@@ -8,13 +8,35 @@
 
 
 <script lang="ts">
-import { defineComponent, h, ref } from 'vue';
+import { defineComponent, h, onMounted, ref } from 'vue';
+import axios from 'axios';
 import Popup from "./Popup.vue";
 
 export default defineComponent({
     name: "ProfileComponent",
     setup() {
-        let username = 'Bracka1337';
+        const username = ref('');
+        const token = localStorage.getItem('userToken');
+
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/profile`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                if (response.data.status) {
+                    username.value = response.data.data.name;
+                    console.log("Success");
+                } else {
+                    console.log("Idk bro some fialed");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        onMounted(fetchData);
 
         return { username };
     },
