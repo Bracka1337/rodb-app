@@ -4,6 +4,7 @@
         <button class="btn" v-if="$route.path !== '/'" @click="routeToProfile">Profile</button>
         <div class="btn-container">
             <button class="login-btn" v-if="$route.path === '/'" @click="routeToLogin">Login</button>
+            <button class="login-btn" v-if="$route.path !== '/'" @click="logout">Logout</button>
         </div>
     </div>
 </template>
@@ -11,10 +12,13 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
 
 export default defineComponent({
     name: "NavBarComponent",
     setup() {
+
+        const token = localStorage.getItem('userToken');
         
         const router = useRouter();
 
@@ -30,7 +34,24 @@ export default defineComponent({
             router.push('/profile');
         };
 
-        return { routeToMain, routeToLogin, routeToProfile };
+        const logout = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/logout`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                if (response.status) {
+                    console.log(response.status);
+                    localStorage.removeItem('userToken');
+                    router.push('/');
+                }
+            } catch(e) {
+                console.error(e);
+            }
+        };
+
+        return { routeToMain, routeToLogin, routeToProfile, logout };
     }
 });
 </script>

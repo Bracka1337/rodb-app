@@ -8,15 +8,15 @@
             <div>
                 <div class="field">
                     <label>Name:</label>
-                    <input type="text" id="Name" name="name" required>
+                    <input type="text" id="Name" name="Name" v-model="name" required>
                 </div>
                 <div class="field">
                     <label>Universe ID:</label>
-                    <input type="text" id="universeId" name="universeId" required>
+                    <input type="text" id="universeId" name="Universe ID" v-model="universeId" required>
                 </div>
                 <div class="field">
                     <label>Roblox API key:</label>
-                    <input type="text" id="apikey" name="roblox_api_key" required>
+                    <input type="text" id="apikey" name="Roblox Api Key" v-model="roblox_api_key" required>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
     <div class="container">
         <p class="header">My Games</p>
         <div class="game-container">
-            <button class="game-btn" @click="routeToDatastore">A Game</button>
+            <button class="game-btn" @click="routeToDatastore(game.id)" v-for="(game, index) in games.data" :key="index">{{ game.name }}</button>
             <button class="add-game-btn" @click="toggleForm">+</button>
         </div>
     </div>
@@ -34,9 +34,13 @@
 
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
+interface game {
+  data: any
+}
 
 
 export default defineComponent({
@@ -48,26 +52,39 @@ export default defineComponent({
         const name = ref<string>('');
         const universeId = ref<string>('');
         const roblox_api_key = ref<string>('');
+        const token = localStorage.getItem('userToken');
+        const games = ref<game>({ data: [] });
+
 
         const toggleForm = async () => {
             showForm.value = !showForm.value;
         }
 
-        const token = localStorage.getItem('userToken');
+        
+        const fetchData = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                if (response.status) {
+                    console.log(response.data);
+                    games.value = response.data;
+                    console.log(games.value);
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
 
-        const submitForm = async (event) => {
+        const submitForm = async (event: MouseEvent) => {
             event.preventDefault();
-
-            // const formData = new FormData();
-            // formData.append('name', name.value);
-            // formData.append('universeID', universeId.value);
-            // formData.append('roblox-api-key', roblox_api_key.value);
-
 
             try {
                 const response = await axios.post(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game`, {
                     'name': name.value,
-                    'universeID': parseInt(universeId.value),
+                    'universeId': universeId.value,
                     'roblox-api-key': roblox_api_key.value,
                 } ,{
                     headers: {
@@ -75,26 +92,25 @@ export default defineComponent({
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                if (response.data.status) {
-                    console.log("sent data");
-                    console.log(response.data);
-                } else {
-                    console.log("Idk bro some fialed");
-                }
+                console.log("probably sent");
+                toggleForm();
+                name.value = '';
+                universeId.value = '';
+                roblox_api_key.value = '';
+                fetchData();
             } catch (error) {
                 console.error(error);
             }
         }
 
-        const fetchData = async () => {
-            
-        }
 
-        const routeToDatastore = async () => {
-            router.push('/games/1');
+        const routeToDatastore = async (id: number) => {
+            router.push(`/games/${id}`);
         };
 
-        return { routeToDatastore, showForm, toggleForm, submitForm }
+        onMounted(fetchData);
+
+        return { routeToDatastore, showForm, toggleForm, submitForm, name, universeId, roblox_api_key, games }
     }
 });
 </script>

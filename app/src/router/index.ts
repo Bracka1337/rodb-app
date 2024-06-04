@@ -18,6 +18,13 @@ const routes = [
         // which is lazy-loaded when the route is visited.
         component: () =>
           import(/* webpackChunkName: "home" */ "@/views/Home.vue"),
+        beforeEnter: (to: any, from: any, next: any) => {
+          if (isLoggedIn()) {
+            next("/profile");
+          } else {
+            next();
+          }
+        },
       },
       {
         path: "/login",
@@ -33,23 +40,22 @@ const routes = [
         path: "/test",
         name: "Test",
         component: () => import("@/views/test.vue"),
-        beforeEnter: (to: any, from: any, next: any) => {
-          if (isLoggedIn()) {
-            next();
-          } else {
-            next("/login");
-          }
-        },
       },
       {
         path: "/profile",
         name: "Profile",
-        component: () => import("@/views/Profile.vue")
+        component: () => import("@/views/Profile.vue"),
+        meta: {
+          requiresAuth: true,
+        },
       },
       {
         path: '/games/:id',
         name: "Panel",
         component: () => import("@/views/Panel.vue"),
+        meta: {
+          requiresAuth: true,
+        },
       },
     ],
   },
@@ -58,6 +64,18 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!isLoggedIn()) {
+      next('/login');
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -5,7 +5,7 @@
             <h1 class="game-name">Game Name</h1>
             <button>Refresh</button>
         </div>
-        <div class="apikey-container">
+        <div class="game-settings-container">
             <input>
         </div>
         <div class="datastore-container">
@@ -61,7 +61,10 @@ export default defineComponent({
     name: "PanelComponent",
     components: {
         Popup
-    }
+    },
+    setup() {
+        
+    },
    
 });
 
