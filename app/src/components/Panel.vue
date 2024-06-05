@@ -16,7 +16,7 @@
                 <div class="entry" v-for="(entry, index) in keys_values || []" :key="index">
                     <div class="entry-value-container">
                         <p class="id">{{ index + 1 }}</p>
-                        <p class="key">{{ entry.key }}</p>
+                        <p class="key">{{ entry}}</p>
                         <p class="value">{{ JSON.stringify(entry.value, null, 2) }}</p>
                     </div>
                     <div class="btn-container">
