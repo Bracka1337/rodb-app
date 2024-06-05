@@ -13,11 +13,11 @@
         </div>
         <div class="panel-container">
             <div class="datastore">
-                <div class="entry" v-for="(key_value, index) in keys_values" :key="index">
-                    <div class="entry-value-container" >
-                        <p class="id">{{index}}</p>
-                        <p class="key">{{ keys_values?.keys }}</p>
-                        <p class="value">{{ keys_values?.values }}</p>
+                <div class="entry" v-for="(entry, index) in keys_values || []" :key="index">
+                    <div class="entry-value-container">
+                        <p class="id">{{ index + 1 }}</p>
+                        <p class="key">{{ entry.key }}</p>
+                        <p class="value">{{ JSON.stringify(entry.value, null, 2) }}</p>
                     </div>
                     <div class="btn-container">
                         <button class="btn-green">Edit</button>
@@ -40,7 +40,7 @@ import Popup from "./Popup.vue";
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
-interface datastores {
+interface datastore {
     datastores: Array<any>,
     nextPageCursor: string
 }
@@ -59,8 +59,8 @@ export default defineComponent({
     setup() {
         const route = useRoute();
         const token = localStorage.getItem('userToken');
-        const datastores = ref<datastores | null>(null);
-        const keys_values = ref<Array<key_value> | null>(null);
+        const datastores = ref<datastore | null>(null);
+        const keys_values = ref<Array<any> | null>(null);
         const gameName = ref<string>('');
 
         const fetchDatastores = async () => {
