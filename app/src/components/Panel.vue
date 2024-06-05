@@ -51,6 +51,7 @@ interface key_value {
 }
 
 
+
 export default defineComponent({
     name: "PanelComponent",
     components: {
@@ -107,7 +108,6 @@ export default defineComponent({
                         'Authorization': `Bearer ${token}`,
                     }
                 });
-                console.log(response.data); 
                 gameName.value = response.data.data.name;
                 console.log(gameName.value);
             } catch (e) {
