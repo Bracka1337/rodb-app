@@ -13,7 +13,7 @@
         </div>
         <div class="panel-container">
             <div class="datastore">
-                <div class="entry" v-for="(entry, index) in keys_values.data || []" :key="index">
+                <div class="entry" v-for="(entry, index) in keys_values || []" :key="index">
                     <div class="entry-value-container">
                         <p class="id">{{ index + 1 }}</p>
                         <p class="key">{{ entry }}</p>
@@ -45,8 +45,13 @@ interface datastore {
     nextPageCursor: string
 }
 
+interface key_value {
+    key: number,
+    value: string
+}
+
 interface keys_values {
-    data: any
+    data: key_value
 }
 
 
@@ -60,7 +65,7 @@ export default defineComponent({
         const route = useRoute();
         const token = localStorage.getItem('userToken');
         const datastores = ref<datastore | null>(null);
-        const keys_values = ref<keys_values>({ data: [] });
+        const keys_values = ref<keys_values | null>(null);
         const gameName = ref<string>('');
 
         const fetchDatastores = async () => {
@@ -92,7 +97,7 @@ export default defineComponent({
                 });
                 keys_values.value = response.data;
                 console.log(keys_values.value);
-                console.log(keys_values.value.data);
+                console.log(keys_values.value?.data);
             } catch (e) {
                 console.log(e);
             }
