@@ -92,6 +92,7 @@ export default defineComponent({
                 });
                 keys_values.value = response.data;
                 console.log(keys_values.value);
+                console.log(keys_values.value.data);
             } catch (e) {
                 console.log(e);
             }
