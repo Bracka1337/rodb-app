@@ -13,27 +13,11 @@
         </div>
         <div class="panel-container">
             <div class="datastore">
-                <div class="entry" v-for="n in 50" :key="n">
-                    <div class="entry-value-container">
-                        <p class="id">{{n}}</p>
-                        <p class="key">123456789</p>
-                        <p class="value">{
-    "Perks": [],
-    "plrStats": {
-        "Kills": 0,
-        "Deaths": 0,
-        "Level": 1,
-        "XP": 0
-    },
-    "Weapons": {
-        "Owned": [],
-        "Equipped": []
-    },
-    "Wallet": {
-        "Cash": 1337,
-        "Coins": 1000
-    }
-}</p>
+                <div class="entry" v-for="(key_value, index) in keys_values" :key="index">
+                    <div class="entry-value-container" >
+                        <p class="id">{{index}}</p>
+                        <p class="key">{{ keys_values?.keys }}</p>
+                        <p class="value">{{ keys_values?.values }}</p>
                     </div>
                     <div class="btn-container">
                         <button class="btn-green">Edit</button>
@@ -56,7 +40,7 @@ import Popup from "./Popup.vue";
 import axios from 'axios';
 import { useRoute } from 'vue-router';
 
-interface datastore {
+interface datastores {
     datastores: Array<any>,
     nextPageCursor: string
 }
@@ -75,7 +59,7 @@ export default defineComponent({
     setup() {
         const route = useRoute();
         const token = localStorage.getItem('userToken');
-        const datastores = ref<datastore | null>(null);
+        const datastores = ref<datastores | null>(null);
         const keys_values = ref<Array<key_value> | null>(null);
         const gameName = ref<string>('');
 
@@ -140,7 +124,7 @@ export default defineComponent({
 
         onMounted(fetchData);
 
-        return { fetchDatastores, datastores, fetchGame, gameName, fetchKeys };
+        return { fetchDatastores, datastores, fetchGame, gameName, fetchKeys, keys_values };
     },
 });
 
