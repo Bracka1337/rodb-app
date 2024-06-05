@@ -91,7 +91,6 @@ export default defineComponent({
                         'Authorization': `Bearer ${token}`,
                     }
                 });
-                console.log(response.data);
                 keys_values.value = response.data;
                 console.log(keys_values.value);
             } catch (e) {
@@ -109,7 +108,6 @@ export default defineComponent({
                     }
                 });
                 gameName.value = response.data.data.name;
-                console.log(gameName.value);
             } catch (e) {
                 console.log(e);
             }
