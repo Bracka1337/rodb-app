@@ -9,11 +9,13 @@ import axios from 'axios';
 export default defineComponent({
     name: "TestComponent",
     setup() {
+        
+
         const darbiba = async () => {
             try {
-                const response = await axios.get('https://apis.roblox.com/api/datastores/v1/universes/5697506348/standard-datastores', {
-                    headers: {
-                        'x-api-key': 'RGZwK37KMEeGWQ/xn5gSZVHx6yrp8r3IBp38EMqHSNXhixUT'
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/roblox-data`, {
+                    params: {
+                        'game_id': 1
                     }
                 });
                 console.log(response.data);
@@ -21,9 +23,16 @@ export default defineComponent({
                 console.log(e);
             }
         }
+
         return { darbiba };
     },
 });
 </script>
 
+<style scoped>
 
+template {
+    color: white;
+}
+
+</style>

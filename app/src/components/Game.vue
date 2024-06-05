@@ -73,7 +73,7 @@ export default defineComponent({
                     games.value = response.data;
                     console.log(games.value);
                 }
-            } catch (error) {
+            } catch (error) { 
                 console.error(error);
             }
         }
@@ -85,14 +85,14 @@ export default defineComponent({
                 const response = await axios.post(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game`, {
                     'name': name.value,
                     'universeId': universeId.value,
-                    'roblox-api-key': roblox_api_key.value,
+                    'roblox_api_key': roblox_api_key.value,
                 } ,{
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`,
                     },
                 });
-                console.log("probably sent");
+                console.log("probably  ssent");
                 toggleForm();
                 name.value = '';
                 universeId.value = '';
