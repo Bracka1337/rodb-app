@@ -108,7 +108,7 @@ export default defineComponent({
                 });
                 console.log(response.data);
                 keys_values.value = response.data;
-                console.log(datastores.value);
+                console.log(keys_values.value);
             } catch (e) {
                 console.log(e);
             }
