@@ -13,7 +13,7 @@ export default defineComponent({
 
         const darbiba = async () => {
             try {
-                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/roblox-data`, {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/fetchds`, {
                     params: {
                         'game_id': 1
                     }

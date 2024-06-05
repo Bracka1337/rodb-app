@@ -3,16 +3,13 @@
     <div class="container">
         <div class="header">
             <h1 class="game-name">Game Name</h1>
-            <button>Refresh</button>
+            <button @click="fetchDatastores">Refresh</button>
         </div>
         <div class="game-settings-container">
             <input>
         </div>
         <div class="datastore-container">
-            <button class="datastore-btn">Datastore Name</button>
-            <button class="datastore-btn">Datastore Name</button>
-            <button class="datastore-btn">Datastore Name</button>
-            <button class="datastore-btn">Datastore Name</button>
+            <button class="datastore-btn" v-for="(ds, index) in datastores.data" :key="index">ds.name</button>
         </div>
         <div class="panel-container">
             <div class="datastore">
@@ -56,6 +53,12 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import Popup from "./Popup.vue";
+import axios from 'axios';
+import { useRoute } from 'vue-router';
+
+interface datastore {
+    data: any
+}
 
 export default defineComponent({
     name: "PanelComponent",
@@ -63,9 +66,27 @@ export default defineComponent({
         Popup
     },
     setup() {
+        const route = useRoute();
+        const token = localStorage.getItem('userToken');
+        const datastores = ref<datastore>({ data: [] });
+
+        const fetchDatastores = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/fetchds`, {
+                    params: {
+                        'game_id': route.params.id
+                    }, headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data);
+            } catch (e) {
+                console.log(e);
+            }
+        }
         
+        return { fetchDatastores, datastores };
     },
-   
 });
 
 </script>
