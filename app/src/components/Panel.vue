@@ -45,9 +45,8 @@ interface datastore {
     nextPageCursor: string
 }
 
-interface key_value {
-    key: number,
-    value: any
+interface keys_values {
+    data: any
 }
 
 
@@ -61,7 +60,7 @@ export default defineComponent({
         const route = useRoute();
         const token = localStorage.getItem('userToken');
         const datastores = ref<datastore | null>(null);
-        const keys_values = ref<Array<any> | null>(null);
+        const keys_values = ref<keys_values>({ data: [] });
         const gameName = ref<string>('');
 
         const fetchDatastores = async () => {
