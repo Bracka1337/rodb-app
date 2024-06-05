@@ -9,7 +9,7 @@
             <input>
         </div>
         <div class="datastore-container">
-            <button class="datastore-btn" v-for="(ds, index) in datastores.data" :key="index">ds.name</button>
+            <button class="datastore-btn" v-for="(ds, index) in datastores.data.datastores" :key="index">ds.name</button>
         </div>
         <div class="panel-container">
             <div class="datastore">
