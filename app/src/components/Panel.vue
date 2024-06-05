@@ -9,7 +9,7 @@
             <input>
         </div>
         <div class="datastore-container">
-            <button class="datastore-btn" v-for="(ds, index) in datastores.data.datastores" :key="index">ds.name</button>
+            <button class="datastore-btn" v-for="(ds, index) in datastores.data" :key="index">ds.name</button>
         </div>
         <div class="panel-container">
             <div class="datastore">
@@ -82,6 +82,7 @@ export default defineComponent({
                 console.log(response.data);
                 datastores.value = response.data;
                 console.log(datastores.value);
+                console.log(datastores.value.data);
             } catch (e) {
                 console.log(e);
             }
