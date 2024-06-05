@@ -80,11 +80,12 @@ export default defineComponent({
                     }
                 });
                 console.log(response.data);
+                datastores.value = response.data;
             } catch (e) {
                 console.log(e);
             }
         }
-        
+
         return { fetchDatastores, datastores };
     },
 });
