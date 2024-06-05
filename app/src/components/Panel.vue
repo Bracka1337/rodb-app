@@ -2,14 +2,14 @@
     <!-- <Popup :message="'error.. deleting system32'" :type="'error'"/> -->
     <div class="container">
         <div class="header">
-            <h1 class="game-name">Game Name</h1>
-            <button @click="fetchDatastores">Refresh</button>
+            <h1 class="game-name">{{ gameName }}</h1>
+            <button @click="fetchDatastores">Fetch From Roblox</button>
         </div>
         <div class="game-settings-container">
             <input>
         </div>
         <div class="datastore-container">
-            <button class="datastore-btn" v-for="(ds, index) in datastores?.datastores" :key="index">{{ ds.name }}</button>
+            <button class="datastore-btn" v-for="(ds, index) in datastores?.datastores" :key="index" @click="fetchKeys(ds.name)">{{ ds.name }}</button>
         </div>
         <div class="panel-container">
             <div class="datastore">
@@ -51,7 +51,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import Popup from "./Popup.vue";
 import axios from 'axios';
 import { useRoute } from 'vue-router';
@@ -70,6 +70,7 @@ export default defineComponent({
         const route = useRoute();
         const token = localStorage.getItem('userToken');
         const datastores = ref<datastore | null>(null);
+        const gameName = ref<string>('');
 
         const fetchDatastores = async () => {
             try {
@@ -88,7 +89,51 @@ export default defineComponent({
             }
         }
 
-        return { fetchDatastores, datastores };
+        const fetchKeys = async (dsName: string) => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/fetchkeys`, {
+                    params: {
+                        'game_id': route.params.id,
+                        'datastoreName': dsName
+                    }, headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data);
+                datastores.value = response.data;
+                console.log(datastores.value);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        const fetchGame = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game/1`, {
+                    params: {
+                        'game_id': route.params.id
+                    }, headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }
+                });
+                console.log(response.data); 
+                gameName.value = response.data.data.name;
+                console.log(gameName.value);
+            } catch (e) {
+                console.log(e);
+            }
+        }
+
+        
+        
+        const fetchData = () => {
+            fetchGame();
+            fetchDatastores();
+        }
+
+        onMounted(fetchData);
+
+        return { fetchDatastores, datastores, fetchGame, gameName, fetchKeys };
     },
 });
 
