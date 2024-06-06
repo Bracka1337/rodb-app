@@ -45,8 +45,13 @@ interface datastore {
     nextPageCursor: string
 }
 
-interface kv {
-    data: any
+interface KvItem {
+    key: string;
+    value: any;
+}
+
+interface Kv {
+    data: KvItem[];
 }
 
 
@@ -59,7 +64,7 @@ export default defineComponent({
         const route = useRoute();
         const token = localStorage.getItem('userToken');
         const datastores = ref<datastore | null>(null);
-        const keys_values = ref<kv>({ data: [] });
+        const keys_values = ref<Kv>({ data: [] });
         const gameName = ref<string>('');
 
         const fetchDatastores = async () => {
@@ -92,8 +97,11 @@ export default defineComponent({
                 keys_values.value = response.data;
                 console.log(keys_values.value);
                 console.log(keys_values.value.data);
-                console.log(keys_values.value.data.key);
-                console.log(keys_values.value.data.value);
+                console.log(keys_values.value.data[0])
+                console.log(keys_values.value.data[0].key)
+                console.log(keys_values.value.data);
+                console.log(keys_values.value.data.keys);
+                console.log(keys_values.value.data.values);
             } catch (e) {
                 console.log(e);
             }
