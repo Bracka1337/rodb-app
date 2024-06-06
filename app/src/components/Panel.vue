@@ -13,7 +13,7 @@
         </div>
         <div class="panel-container">
             <div class="datastore">
-                <div class="entry" v-for="(entry, index) in keys_values.data || []" :key="index">
+                <div class="entry" v-for="(entry, index) in keys_values|| []" :key="index">
                     <div class="entry-value-container">
                         <p class="id">{{ index + 1 }}</p>
                         <p class="key">{{ entry.key }}</p>
@@ -44,13 +44,8 @@ interface datastore {
     data: any;
 }
 
-interface KvItem {
-    key: string;
-    value: any;
-}
-
 interface Kv {
-    data: KvItem[];
+    data: any;
 }
 
 
