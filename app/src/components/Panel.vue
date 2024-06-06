@@ -13,11 +13,11 @@
         </div>
         <div class="panel-container">
             <div class="datastore">
-                <div class="entry" v-for="(entry, index) in keys_values?.data || []" :key="index">
+                <div class="entry" v-for="(entry, index) in keys_values.data || []" :key="index">
                     <div class="entry-value-container">
                         <p class="id">{{ index + 1 }}</p>
-                        <p class="key">{{ entry }}</p>
-                        <p class="value">{{ JSON.stringify(entry, null, 2) }}</p>
+                        <p class="key">{{ entry.key }}</p>
+                        <p class="value">{{ entry.value }}</p>
                     </div>
                     <div class="btn-container">
                         <button class="btn-green">Edit</button>
@@ -96,12 +96,6 @@ export default defineComponent({
                 });
                 keys_values.value = response.data;
                 console.log(keys_values.value);
-                console.log(keys_values.value.data);
-                console.log(keys_values.value.data[0])
-                console.log(keys_values.value.data[0].key)
-                console.log(keys_values.value.data);
-                console.log(keys_values.value.data.keys);
-                console.log(keys_values.value.data.values);
             } catch (e) {
                 console.log(e);
             }
