@@ -77,7 +77,8 @@ export default defineComponent({
                 });
                 console.log(response.data);
                 datastores.value = response.data;
-                console.log(datastores.value);
+                console.log(datastores.value.data);
+                console.log(datastores.value.data.data);
             } catch (e) {
                 console.log(e);
             }
