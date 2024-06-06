@@ -9,7 +9,7 @@
             <input>
         </div>
         <div class="datastore-container">
-            <button class="datastore-btn" v-for="(ds, index) in datastores?.datastores" :key="index" @click="fetchKeys(ds.name)">{{ ds.name }}</button>
+            <button class="datastore-btn" v-for="(ds, index) in datastores.data" :key="index" @click="fetchKeys(ds.name)">{{ ds.name }}</button>
         </div>
         <div class="panel-container">
             <div class="datastore">
@@ -41,8 +41,7 @@ import axios from 'axios';
 import { useRoute } from 'vue-router';
 
 interface datastore {
-    datastores: Array<any>,
-    nextPageCursor: string
+    data: any;
 }
 
 interface KvItem {
@@ -63,7 +62,7 @@ export default defineComponent({
     setup() {
         const route = useRoute();
         const token = localStorage.getItem('userToken');
-        const datastores = ref<datastore | null>(null);
+        const datastores = ref<datastore>({ data: [] });
         const keys_values = ref<Kv>({ data: [] });
         const gameName = ref<string>('');
 
@@ -128,6 +127,7 @@ export default defineComponent({
         return { fetchDatastores, datastores, fetchGame, gameName, fetchKeys, keys_values };
     },
 });
+
 
 </script>
 
