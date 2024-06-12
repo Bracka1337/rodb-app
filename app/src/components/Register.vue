@@ -16,6 +16,7 @@
             <p>Password</p>
             <input type="password" v-model="password">
         </div>
+        <p class="error" v-if="errorMsg !== ''">{{ errorMsg }}</p>
         <button class="register-btn" @click="submitRegister">Register</button>
         <button @click="routeToLogin">Already have an account? Login</button>
     </div>
@@ -32,6 +33,7 @@ export default defineComponent({
         const username = ref<string>('');
         const email = ref<string>('');
         const password = ref<string>('');
+        const errorMsg = ref<string>('');
         const router = useRouter();
 
         const submitRegister = async () => {
@@ -43,12 +45,15 @@ export default defineComponent({
                     password_confirmation: password.value
                 });
                 if (response.data.status) {
+                    errorMsg.value = '';
                     console.log("Success");
                     router.push('/login');
                 } else {
+                    errorMsg.value = 'Invalid input';
                     console.log("Register Failer");
                 }
             } catch (error) {
+                errorMsg.value = 'Invalid input';
                 console.error(error);
             }
         };
@@ -60,7 +65,7 @@ export default defineComponent({
             router.push('/login');
         };
 
-        return { username, email, password, submitRegister, routeToMain, routeToLogin };
+        return { username, email, password, submitRegister, routeToMain, routeToLogin, errorMsg };
     },
 });
 </script>
@@ -126,6 +131,13 @@ input[type="email"], input[type="password"], input[type="text"] {
     font-size: 2em;
     font-weight: bold;
     text-align: center;
+}
+
+.error {
+    padding: 5px;
+    background-color: rgba(219, 76, 76, 0.904);
+    border: 2px solid rgb(255, 52, 52);
+    border-radius: 5px;
 }
 
 </style>

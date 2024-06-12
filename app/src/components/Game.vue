@@ -19,7 +19,7 @@
                     <input type="text" id="apikey" name="Roblox Api Key" v-model="roblox_api_key" required>
                 </div>
             </div>
-
+            <p class="error" v-if="errorMsg !== ''">{{ errorMsg }}</p>
             <button type="submit" @click="submitForm">Submit</button>
         </form>
     </div>
@@ -53,11 +53,16 @@ export default defineComponent({
         const universeId = ref<string>('');
         const roblox_api_key = ref<string>('');
         const token = localStorage.getItem('userToken');
+        const errorMsg = ref<string>('');
         const games = ref<game>({ data: [] });
 
 
         const toggleForm = async () => {
             showForm.value = !showForm.value;
+            errorMsg.value = '';
+            name.value = '';
+            universeId.value = '';
+            roblox_api_key.value = '';
         }
 
         
@@ -92,6 +97,7 @@ export default defineComponent({
                         'Authorization': `Bearer ${token}`,
                     },
                 });
+                errorMsg.value = '';
                 console.log("probably  ssent");
                 toggleForm();
                 name.value = '';
@@ -99,6 +105,7 @@ export default defineComponent({
                 roblox_api_key.value = '';
                 fetchData();
             } catch (error) {
+                errorMsg.value = 'Invalid input';
                 console.error(error);
             }
         }
@@ -110,7 +117,7 @@ export default defineComponent({
 
         onMounted(fetchData);
 
-        return { routeToDatastore, showForm, toggleForm, submitForm, name, universeId, roblox_api_key, games }
+        return { routeToDatastore, showForm, toggleForm, submitForm, name, universeId, roblox_api_key, games, errorMsg }
     }
 });
 </script>
@@ -119,13 +126,15 @@ export default defineComponent({
 
 .game-container {
     border-top: 2px solid rgba(255, 255, 255, 0.267);
+    display: flex;
 }
 
 .game-btn, .add-game-btn {
     width: 200px;
     height: 200px;
     margin: 10px;
-    font-size: 52px;
+    font-size: clamp(1rem, 3vw, 2rem);
+    overflow: hidden;
     transition: all 0.3s ease;
 }
 
@@ -220,6 +229,13 @@ input {
     margin: 2px;
     color: white;
     width: auto;
+}
+
+.error {
+    padding: 5px;
+    background-color: rgba(219, 76, 76, 0.904);
+    border: 2px solid rgb(255, 52, 52);
+    border-radius: 5px;
 }
 
 </style>

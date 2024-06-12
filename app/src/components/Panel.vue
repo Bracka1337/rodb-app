@@ -15,7 +15,7 @@
             <div class="datastore">
                 <div class="entry" v-for="(entry, index) in keys_values|| []" :key="index">
                     <div class="entry-value-container">
-                        <p class="id">{{ index + 1 }}</p>
+                        <p class="id">{{ entry.id }}</p>
                         <p class="key">{{ entry.key }}</p>
                         <p class="value">{{ entry.value }}</p>
                     </div>
@@ -97,7 +97,7 @@ export default defineComponent({
 
         const fetchGame = async () => {
             try {
-                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game/1`, {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/game/${route.params.id}`, {
                     params: {
                         'game_id': route.params.id
                     }, headers: {
@@ -110,7 +110,17 @@ export default defineComponent({
             }
         }
 
-        
+        const getGameDS = async () => {
+            try {
+                const response = await axios.get(`http://${import.meta.env.VITE_BACKEND_ADDRESS}/api/gameds`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                    }    
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
         
         const fetchData = () => {
             fetchGame();
